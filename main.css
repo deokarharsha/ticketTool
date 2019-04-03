@@ -1,0 +1,14 @@
+.form1{
+    margin-left:35%; margin-top: 20%;
+}
+.box{
+    border:1px solid lightgrey;
+}
+.navbar-brand{
+    color:white;
+    font-size: 20px;
+    padding:0px;
+}
+.navbar{
+    height:3px;
+}
