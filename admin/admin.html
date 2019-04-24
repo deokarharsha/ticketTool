@@ -1,0 +1,70 @@
+<div class="container-fluid" ng-controller="adminCtrl">
+    <div class="row">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <label class="navbar-brand" style="color:white;">Hi {{ emailAdd }}</label>
+              </div>
+              <ul class="nav navbar-nav navbar-right">
+                <img class="inset" src="http://rs775.pbsrc.com/albums/yy35/PhoenyxStar/link-1.jpg~c200">
+              </ul>
+            </div>
+        </nav>
+
+        
+        <div class="btn-group btn-group-justified btn-group-sm" role="group" >
+          <div class="btn-group" role="group">
+            <button type="button" class="active btn btn-default">Users</button>
+          </div>
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-default" ng-click="new1()">Groups</button>
+          </div>
+        </div>
+          <button type="button" class="btn pull-right btn-success txtRight" ng-click="add()">Add New</button>
+
+        <div class="col-md-6">
+            <table class="table table-condensed table-stripped" >
+                <tr>
+                    <th>Email</th>
+                    <th>Password</th>
+                    <th>View</th>
+                </tr>
+                <tr ng-repeat="user in usersData">
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.password }}</td>
+                    <td><input type="button" class="btn btn-success btn-group-sm" value="view" ng-click="selUser(user)"></td>
+                </tr>
+            </table>
+        </div>
+
+
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="modal-title" style="color:green;"><center>User Information</center></h2>
+                </div>
+                <div class="modal-body">
+                  <h6>Id :<input type="text" ng-model="selected_user.id" ng-disabled="true" value="{{selected_user.id}}"></h6>
+                  <h6>Name : <input type="text" ng-model="selected_user.name" value="{{selected_user.name}}"></h6>
+                  <h6>Email : <input type="text" ng-model="selected_user.email" ng-disabled="true" value="{{selected_user.email}}"></h6>
+                  <h6>Password : <input type="text" ng-model="selected_user.password" value="{{selected_user.password}}"></h6>
+                  <h6>IsAdmin : <input type="text" ng-model="selected_user.isAdmin.data" value="{{selected_user.isAdmin.data}}"></h6>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="edit()"><i class="glyphicon glyphicon-edit"></i></button>
+                  <button type="button" class="btn btn-success" data-dismiss="modal" ng-click="delete()"><i class="glyphicon glyphicon-trash"></i></button>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          
+      
+        
+       
+    </div>
+</div>

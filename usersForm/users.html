@@ -1,0 +1,38 @@
+<div class="container-fluid" ng-controller="usersCtrl">
+    <div class="row">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                <label class="navbar-brand" style="color:white;">Hi {{ emailAdd }}</label>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                <img class="inset" src="http://rs775.pbsrc.com/albums/yy35/PhoenyxStar/link-1.jpg~c200">
+                </ul>
+            </div>
+        </nav>
+        <form class="userForm">
+            <div class="col-md-5 box">
+                <div class="form-group" style="margin-top: 10px;">
+                    <label for="fName">Name</label>
+                    <input type="text" id="fName" class="form-control" ng-model="name" placeholder="Name">
+                </div>
+                <div class="form-group" style="margin-top: 10px;">
+                    <label for="email">Email</label>
+                    <input type="text" id="email" class="form-control" ng-model="email" placeholder="Email">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Password</label>
+                    <input type="password" id="pwd" class="form-control" ng-model="password" placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <label for="isAdmin">isAdmin</label>
+                    <input type="text" id="isAdmin" class="form-control" ng-model="isAdmin" placeholder="isAdmin">
+                </div>
+                <div class="form-group">
+                    <button class="form-control btn btn-success" ng-click="signUp()">Sign up</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>-
+  

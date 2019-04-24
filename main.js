@@ -1,47 +1,44 @@
-var app = angular.module('myApp', ["ngRoute"]);
+var app = angular.module('myApp', ['ngRoute','ngCookies'])
 app.config([ '$routeProvider', '$locationProvider', function($routeProvider, $locationProvider) {
     $routeProvider
     .when("/login", {
-        templateUrl : "views/login.html",
+        templateUrl : "loginForm/login.html",
         controller : "loginCtrl"
     })
     .when("/", {
-        templateUrl : "views/dashboard.html",
-        // controller : "dashboardCtrl"
+        templateUrl : "dashboardForm/dashboard.html",
+        controller : "dashboardCtrl"
+    })
+    .when("/admin", {
+        templateUrl : "admin/admin.html",
+        controller : "adminCtrl"
+    })
+    .when("/users", {
+        templateUrl : "usersForm/users.html",
+        controller : "usersCtrl"
     })
     .otherwise({
         redirectTo : "/login"
     });
     $locationProvider.html5Mode(true);
 }]);
-// app.run(function($rootScope) {
-//     $rootScope.emailAdd = $scope.email;
-// });
-app.controller('loginCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
-    
-    $scope.sign = function(){
-        $location.path("/");
-        $http.get('http://localhost:3000/users').then(function(data){
-            $scope.usersData = data;
-            console.log($scope.usersData);
-        }); 
-        var data = JSON.stringify({ email: $scope.email,
-                    password : $scope.password})
-        console.log(data);
-        $http.post("http://localhost:3000/details", data).then(function(response) {
-            console.log(response);
-            console.log('Data posted successfully');
-        })
-    }
- 
+
+
+app.run(['$rootScope','$location', '$cookieStore', '$http', function($rootScope, $location, $cookieStore, $http) {
+    $rootScope.globals = $cookieStore.get('globals') || {};
+    // console.log($rootScope.globals);
+        if ($rootScope.globals.currentUser) {
+            // $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata; 
+        }
+        $rootScope.$on('$locationChangeStart', function (event, next, current) {
+            // var restrictedPage = $.inArray($location.path(), ['/']) === -1;
+            var loggedIn = $rootScope.globals.currentUser;
+            // console.log(loggedIn);
+            // if (restrictedPage && !loggedIn) {
+            //     $location.path('/');
+            // }
+        });
 }]);
 
 
-// app.controller('dashboardCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
-    
-//     $scope.back = function(){
-//         $location.path("/login");
-       
-//     }
- 
-// }]);
+
