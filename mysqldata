@@ -1,0 +1,41 @@
+ 
+---------------------------Table Creation-----------------------
+
+
+CREATE TABLE `users` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `isAdmin` bit NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--------------------------------masterUsers SP----------------------
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `masterUsers`(
+In _id int(10),
+In _name varchar(255),
+In _email varchar(255),
+In _password varchar(255),
+In _isAdmin bit(1),
+In _action varchar(255)
+)
+BEGIN
+     DECLARE _countUser int;
+      IF _action = 'SELECT' then
+            SELECT * FROM `users`;
+	  END IF;
+      IF _action = 'INSERT' then
+            INSERT INTO `users`(name,email,password,isAdmin)
+            VALUES (_name,_email,MD5(_password),_isAdmin);
+      END IF;
+      IF _action = 'UPDATE' then
+            UPDATE `users`
+            SET name = _name, email =_email, password = MD5(_password), isAdmin = _isAdmin
+            WHERE id = _id; 
+      END IF;
+      IF _action = 'CHECK' then
+            SET _countUser = (SELECT count(*) FROM users WHERE email = _email and password = MD5(_password));
+            SELECT _countUser;
+      END IF;
+END
