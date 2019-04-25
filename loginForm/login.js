@@ -2,13 +2,13 @@ app.controller("loginCtrl", ['$scope', '$http', '$location', '$cookies',function
     $scope.sign = function(){
             // $cookies.put(data);
         if($scope.email == null && $scope.password == null){
-            alert("please enter email and password");
+            alert("Please enter email and password");
         }else{
-            var data = ({ email: $scope.email, password : $scope.password});
-            // console.log(typeof(data));
-            $http.post("http://localhost:3000/users", data).then(function(response) {
-                angular.forEach(response.data[0], function(key,value){
-                     if(key == 1)
+            var data = ({ id: 1, name : 'test', email: $scope.email, password : $scope.password, isAdmin : 1, action : 'check'});
+            $http.post("http://localhost:3000/user12", data).then(function(response) {
+                $scope.users = response.data[0];
+                angular.forEach($scope.users, function(key,value){
+                     if(JSON.stringify(key) == 1)
                     {
                         confirm("login successfull!!");
                         $cookies.put(data);
@@ -18,9 +18,9 @@ app.controller("loginCtrl", ['$scope', '$http', '$location', '$cookies',function
                         $scope.email = "";
                         $scope.password = "";
                     }
-                })
-            })
+                });
+            });
         }
     }
  
-}]); ;
+}]); 

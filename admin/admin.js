@@ -1,9 +1,24 @@
 app.controller('adminCtrl', ['$scope', '$http', '$location', function($scope, $http, $location){
      $scope.show = true;
-     $http.get('http://localhost:3000/users').then(function(data){
-               $scope.usersData = data.data;
-               console.log($scope.usersData);
-          });
+     var data = {
+          id: 80,
+          name:'Raj',
+          email:'test@gmail.com',
+          password:'12345',
+          isAdmin: 1,
+          action:'select'
+     };
+     $http({
+          method: 'POST',
+          url: 'http://localhost:3000/user12',
+          data: JSON.stringify(data)
+        })
+        .then(function (success) {
+             $scope.usersData = success.data;
+        }, function (error) {
+          console.log(error.data);
+        });
+     
      $scope.add = function(){
           $location.path("/users");
      }
@@ -15,11 +30,10 @@ app.controller('adminCtrl', ['$scope', '$http', '$location', function($scope, $h
      $scope.isSelected = function(user) {
           return $scope.selected_user === user;
      }
-     // $scope.show = false;
      $scope.edit = function(){
           angular.element('#myModal').modal();
-          var data = ({ id: $scope.selected_user.id, name : $scope.selected_user.name , email: $scope.selected_user.email, password : $scope.selected_user.password, isAdmin : $scope.selected_user.isAdmin.data});
-          $http.post("http://localhost:3000/user1", data).then(function(response) {
+          var data = ({ id: $scope.selected_user.id, name : $scope.selected_user.name , email: $scope.selected_user.email, password : $scope.selected_user.password, isAdmin : $scope.selected_user.isAdmin.data, action : 'update'});
+          $http.post("http://localhost:3000/user12", data).then(function(response) {
                // console.log(data);
           });
      }
